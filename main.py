@@ -1,7 +1,5 @@
 
 
-from platform import node
-
 
 class LinkedList:
     def __init__(self, head=None):
@@ -65,13 +63,17 @@ class LinkedList:
 
         previous = self.head
         current = self.head.ref
+        found = False
         while (current):
             if current.value == value:
+                found = True
                 previous.ref = current.ref                
                 
             previous = current
             current = current.ref
             
+        if not found:
+            print(f"Could not delete. {value} is not in list")    
             
 
 
@@ -117,4 +119,8 @@ ll.print_linked_list()
 print("")
 
 ll.remove_item(23)
+ll.print_linked_list()
+print("")
+
+ll.remove_item(44)
 ll.print_linked_list()
