@@ -7,15 +7,21 @@ class LinkedList:
 
     def print_linked_list(self):
         if self.head is None:
-            print("The linked list is empty")
+            print("The list is empty")
         else:
             current = self.head
             while current is not None:
                 print(current.value)
                 current = current.ref
+                
+    def end(self):
+        current = self.head
+        while (current.ref):
+            current = current.ref
+        return current
 
     def add_to_start(self, to_insert):
-        new = Node.create_node_from_value(to_insert)
+        new = Node.create_node_from(to_insert)
         if self.head is None:
             self.head = new
             return
@@ -24,18 +30,16 @@ class LinkedList:
         self.head = new
 
     def add_to_end(self, to_insert):
-        new = Node.create_node_from_value(to_insert)
+        new = Node.create_node_from(to_insert)
         if self.head is None:
             self.head = new
             return
 
-        current = self.head
-        while (current.ref):
-            current = current.ref
-        current.ref = new
+        end = self.end()
+        end.ref = new
 
     def add_item_after_value(self, value, to_insert):
-        new = Node.create_node_from_value(to_insert)
+        new = Node.create_node_from(to_insert)
         if self.head is None:
             self.head = new
             return
@@ -51,11 +55,11 @@ class LinkedList:
             current = current.ref
             
         if not found:
-            print(f"Add failed. {value} is not in list")
+            print(f"Add failed. {value} is not in the list")
             
     def remove_item(self, value):
         if self.head is None:
-            print("Could not delete. List is empty")
+            print("Could not delete. The list is empty")
             return
         
         if self.head.value == value:
@@ -73,7 +77,7 @@ class LinkedList:
             current = current.ref
             
         if not found:
-            print(f"Could not delete. {value} is not in list")    
+            print(f"Could not delete. {value} is not in the list")    
             
 
 
@@ -83,11 +87,11 @@ class Node:
         self.ref = ref
 
     @staticmethod
-    def create_node_from_value(value):
-        if type(value) is int:
-            return Node(value)
-        elif type(value) is Node:
-            return value
+    def create_node_from(input):
+        if type(input) is int:
+            return Node(input)
+        elif type(input) is Node:
+            return Node(input.value, input.ref)
         return None
 
 
